@@ -1,9 +1,8 @@
-<h1>🐶 Woof Adopt</h1>
-<nav>
-  <a routerLink="/search" routerLinkActive="active">search</a> |
-  <a routerLink="/adopt" routerLinkActive="active">adopt</a>
-</nav>
-
+<div class="tabs">
+  <button (click)="selectTab('search')">Search</button> |
+  <button (click)="selectTab('adopt')">Adopt</button>
+</div>
 <hr />
 
-<router-outlet></router-outlet>
+<app-search-dogs *ngIf="selectedTab === 'search'"></app-search-dogs>
+<app-adoption-form *ngIf="selectedTab === 'adopt'"></app-adoption-form>

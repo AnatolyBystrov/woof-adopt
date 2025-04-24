@@ -8,12 +8,12 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-search-dogs',
   imports: [CommonModule, FormsModule],
   templateUrl: './search-dogs.component.html',
-  styleUrls: ['./search-dogs.component.css']
+  styleUrls: ['./search-dogs.component.css'],
 })
 export class SearchDogsComponent implements OnInit {
   breeds: string[] = [];
   imagesList: string[] = [];
-  selectedBreed: string = '';
+  selectedBreed = '';
 
   constructor(private dogApi: DogApiService) {}
 
