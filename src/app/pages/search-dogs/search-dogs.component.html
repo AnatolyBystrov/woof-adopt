@@ -1,1 +1,11 @@
-<p>search-dogs works!</p>
+<select (change)="onBreedChange($event)">
+    <option value="" disabled selected>Select a breed</option>
+    <option *ngFor="let breed of breeds" [value]="breed">{{ breed }}</option>
+  </select>
+  
+  <div *ngIf="images().length > 0" style="margin-top: 20px;">
+    <div *ngFor="let img of images()" style="margin-bottom: 10px;">
+      <img [src]="img" width="300" />
+    </div>
+  </div>
+  
