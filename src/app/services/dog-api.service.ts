@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DogApiService {
+  private baseUrl = 'https://dog.ceo/api';
+
   constructor(private http: HttpClient) {}
 
-  getAllBreeds(): Observable<string[]> {
-    return this.http.get<{ message: Record<string, string[]>, status: string }>(
-      'https://dog.ceo/api/breeds/list/all'
-    ).pipe(
-      map(res => Object.keys(res.message))
+  getBreeds(): Observable<string[]> {
+    return this.http.get<{ message: Record<string, string[]>, status: string }>(`${this.baseUrl}/breeds/list/all`).pipe(
+      map((response) => {
+        const breedsWithSub = Object.entries(response.message)
+          .filter(([_, subBreeds]) => subBreeds.length > 0)
+          .map(([breed]) => breed);
+        return breedsWithSub;
+      })
     );
   }
 
-  getImagesByBreed(breed: string): Observable<string[]> {
-    return this.http.get<{ message: string[], status: string }>(
-      `https://dog.ceo/api/breed/${breed}/images`
-    ).pipe(
-      map(res => res.message)
-    );
+  getImagesByBreed(breed: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/breed/${breed}/images`);
   }
 }
