@@ -1,9 +1,16 @@
-
 # 🐶 Woof Adopt - Angular Dog Gallery & Adoption App
 
 Welcome to **Woof Adopt**, a beautiful and responsive Angular application that allows users to explore dog breeds and submit adoption requests 🐾.
 
 ![Woof Adopt Screenshot](https://dog.ceo/img/dog-api-logo.svg)
+
+---
+
+## 🌐 Live Demo
+
+✨ You can try the project **online**, no installation required:
+
+🔗 [https://woof-adopt.vercel.app/](https://woof-adopt.vercel.app/)
 
 ---
 
@@ -42,12 +49,16 @@ Welcome to **Woof Adopt**, a beautiful and responsive Angular application that a
 
 ## 📦 Installation
 
+To run the app locally:
+
 ```bash
+git clone https://github.com/AnatolyBystrov/woof-adopt.git
+cd woof-adopt
 npm install
-ng serve
+npm start
 ```
 
-App will run at: `http://localhost:4200`
+Then open: [http://localhost:4200](http://localhost:4200)
 
 ---
 
@@ -72,4 +83,3 @@ src/
 
 - Dog images and data: [Dog CEO API](https://dog.ceo/dog-api/)
 - Project by Anatoly Bystrov
-
