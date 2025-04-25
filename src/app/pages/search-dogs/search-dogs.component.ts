@@ -1,45 +1,77 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { signal, WritableSignal, computed } from '@angular/core';
 import { DogApiService } from '../../services/dog-api.service';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  standalone: true,
   selector: 'app-search-dogs',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './search-dogs.component.html',
-  styleUrls: ['./search-dogs.component.css'],
+  styleUrl: './search-dogs.component.css'
 })
-export class SearchDogsComponent implements OnInit {
-  breeds: string[] = [];
-  imagesList: string[] = [];
-  selectedBreed = '';
+export class SearchDogsComponent {
+  private http = inject(HttpClient);
+  private dogApiService = inject(DogApiService); 
 
-  constructor(private dogApi: DogApiService) {}
+  readonly breeds: WritableSignal<string[]> = signal([]);
+  readonly subBreeds: WritableSignal<string[]> = signal([]);
+  readonly selectedBreed: WritableSignal<string> = signal('');
+  readonly selectedSubBreed: WritableSignal<string> = signal('');
+  readonly images: WritableSignal<string[]> = signal([]);
 
-  ngOnInit() {
-    this.dogApi.getBreeds().subscribe((breeds) => {
-      this.breeds = breeds;
-      if (breeds.length > 0) {
-        this.selectedBreed = breeds[0];
-        this.loadImages();
-      }
+  ngOnInit(): void {
+    this.fetchBreeds();
+  }
+  
+
+  fetchBreeds() {
+    this.http
+      .get<{ message: Record<string, string[]> }>('https://dog.ceo/api/breeds/list/all')
+      .subscribe(res => {
+        const breedsWithSubBreeds = Object.entries(res.message)
+          .filter(([_, subBreeds]) => subBreeds.length > 0)
+          .map(([breed]) => breed);
+        this.breeds.set(breedsWithSubBreeds);
+      });
+  }
+
+  fetchSubBreeds(breed: string) {
+    this.dogApiService.getSubBreeds(breed).subscribe((res: any) => {
+      this.subBreeds.set(res.message);
+    });
+  }
+
+  fetchImages(breed: string, subBreed?: string) {
+    this.dogApiService.getImages(breed, subBreed).subscribe((res: any) => {
+      this.images.set(res.message.slice(0, 6));
     });
   }
 
   onBreedChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.selectedBreed = target.value;
-    this.loadImages();
+    const target = event.target as HTMLSelectElement | null;
+    const value = target?.value || '';
+    if (!value) return;
+    this.selectedBreed.set(value);
+    this.selectedSubBreed.set('');
+    this.fetchSubBreeds(value);
+    this.fetchImages(value);
   }
 
-  loadImages() {
-    this.dogApi.getImagesByBreed(this.selectedBreed).subscribe((data) => {
-      this.imagesList = data.message;
-    });
+  onSubBreedChange(event: Event) {
+    const target = event.target as HTMLSelectElement | null;
+    const value = target?.value || '';
+    if (!value) return;
+    const breed = this.selectedBreed();
+    this.selectedSubBreed.set(value);
+    this.fetchImages(breed, value);
   }
 
-  images() {
-    return this.imagesList;
-  }
+  breedsList = () => this.breeds();
+  subBreedsList = () => this.subBreeds();
+  selectedBreedValue = () => this.selectedBreed();
+  selectedSubBreedValue = () => this.selectedSubBreed();
+  imagesList = () => this.images();
 }

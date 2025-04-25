@@ -16,7 +16,7 @@ describe('DogApiService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); 
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -26,21 +26,24 @@ describe('DogApiService', () => {
   it('should fetch all breeds', () => {
     const mockResponse = {
       message: {
-        husky: '',
-        labrador: ''
+        husky: ['siberian'],
+        labrador: []
       },
       status: 'success'
     };
-  
+
     service.getAllBreeds().subscribe((res) => {
-      expect(res).toEqual(['husky', 'labrador']); 
+      expect(res).toEqual({
+        husky: ['siberian'],
+        labrador: []
+      });
     });
-  
+
     const req = httpMock.expectOne('https://dog.ceo/api/breeds/list/all');
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });
-  
+
   it('should fetch images by breed', () => {
     const breed = 'husky';
     const mockResponse = {
@@ -49,8 +52,8 @@ describe('DogApiService', () => {
     };
 
     service.getImagesByBreed(breed).subscribe((res) => {
-      expect(res.length).toBe(2);
-      expect(res).toContain('image1.jpg');
+      expect(res.message.length).toBe(2);
+      expect(res.message).toContain('image1.jpg');
     });
 
     const req = httpMock.expectOne(`https://dog.ceo/api/breed/${breed}/images`);
