@@ -1,1 +1,63 @@
-<p>adoption-form works!</p>
+<div class="p-4 max-w-md mx-auto">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  
+      
+      <div>
+        <label for="weight">Weight (kg)</label>
+        <input id="weight" type="number" formControlName="weight" />
+        <div *ngIf="weight?.invalid && weight?.touched" class="error">
+          <div *ngIf="weight?.errors?.['required']">Weight is required.</div>
+          <div *ngIf="weight?.errors?.['min'] || weight?.errors?.['max']">
+            Weight must be between 1 and 100.
+          </div>
+        </div>
+      </div>
+  
+     
+      <div>
+        <label for="colour">Colour</label>
+        <select id="colour" formControlName="colour">
+          <option value="">Select</option>
+          <option *ngFor="let c of colours" [value]="c">{{ c }}</option>
+        </select>
+        <div *ngIf="colour?.invalid && colour?.touched" class="error">
+          <div *ngIf="colour?.errors?.['required']">Colour is required.</div>
+        </div>
+      </div>
+  
+      
+      <div class="checkbox-row">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="firstAdoption" />
+          Is this your first adoption?
+        </label>
+      </div>
+      
+  
+    
+      <div>
+        <label for="age">Age (years)</label>
+        <input id="age" type="number" formControlName="age" />
+        <div *ngIf="age?.invalid && age?.touched" class="error">
+          <div *ngIf="age?.errors?.['required']">Age is required.</div>
+          <div *ngIf="age?.errors?.['min'] || age?.errors?.['max']">
+            Age must be between {{ form.get('firstAdoption')?.value ? '0 and 8' : '0 and 20' }}.
+          </div>
+        </div>
+      </div>
+  
+      
+      <button type="submit" [disabled]="form.invalid || loading">
+        Submit
+      </button>
+  
+     
+      <div *ngIf="loading" class="mt-2">Submitting...</div>
+  
+      
+      <div *ngIf="submitted" class="mt-2 success">
+        Your adoption request has been registered in the system.
+      </div>
+    </form>
+  </div>
+  

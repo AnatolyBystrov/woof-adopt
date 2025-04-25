@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { SearchDogsComponent } from './pages/search-dogs/search-dogs.component';
+import { AdoptionFormComponent } from './pages/adoption-form/adoption-form.component'; 
 
 @Component({
+  standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [CommonModule, SearchDogsComponent, AdoptionFormComponent] 
 })
 export class AppComponent {
-  title = 'woof-adopt';
+  selectedTab: 'search' | 'adopt' = 'search';
+
+  selectTab(tab: 'search' | 'adopt') {
+    this.selectedTab = tab;
+  }
 }
