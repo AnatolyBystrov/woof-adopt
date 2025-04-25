@@ -1,59 +1,75 @@
-# WoofAdopt
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+# 🐶 Woof Adopt - Angular Dog Gallery & Adoption App
 
-## Development server
+Welcome to **Woof Adopt**, a beautiful and responsive Angular application that allows users to explore dog breeds and submit adoption requests 🐾.
 
-To start a local development server, run:
+![Woof Adopt Screenshot](https://dog.ceo/img/dog-api-logo.svg)
+
+---
+
+## 🔥 Features
+
+### 🔎 Search Tab
+
+- Dropdown to select **Dog Breeds** (only those with sub-breeds)
+- Second dropdown for **Sub-Breeds**
+- Responsive **Dog Album** with image grid
+- Instant update on selection
+- Debounced input handling with **RxJS**
+
+### 📝 Adopt Tab
+
+- Reactive form for adoption requests:
+  - **Weight (1-100kg)** with validation
+  - **Colour** dropdown (White, Black, Brown, Golden, Gray, Mixed)
+  - **First Adoption?** checkbox
+  - **Age (0-20)** with conditional validation (0-8 if first adoption)
+- Submit button active only when valid
+- Loader for 2 seconds then confirmation message
+- Custom error messages for each field
+
+---
+
+## 🧪 Tech Stack
+
+- **Angular 17+** with Standalone Components
+- **RxJS** for reactive logic
+- **HttpClient** for Dog API
+- **Reactive Forms**
+- Custom CSS for styling
+
+---
+
+## 📦 Installation
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+App will run at: `http://localhost:4200`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📁 Folder Structure
 
-```bash
-ng generate component component-name
+```
+src/
+│
+├── app/
+│   ├── pages/
+│   │   ├── search-dogs/
+│   │   └── adoption-form/
+│   ├── services/
+│   └── app.component.ts
+│
+└── assets/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 💡 Credits
 
-## Building
+- Dog images and data: [Dog CEO API](https://dog.ceo/dog-api/)
+- Project by Anatoly Bystrov
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
