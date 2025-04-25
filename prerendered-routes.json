@@ -1,7 +1,7 @@
 {
   "routes": {
-    "/": {},
-    "/adopt": {},
-    "/search": {}
+    "/woof-adopt": {},
+    "/woof-adopt/adopt": {},
+    "/woof-adopt/search": {}
   }
 }

@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/',
+  basePath: '/woof-adopt',
   supportedLocales: {
   "en-US": ""
 },
