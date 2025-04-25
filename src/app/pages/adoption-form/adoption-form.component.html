@@ -1,7 +1,7 @@
 <div class="p-4 max-w-md mx-auto">
     <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
   
-      <!-- Weight -->
+      
       <div>
         <label for="weight">Weight (kg)</label>
         <input id="weight" type="number" formControlName="weight" />
@@ -13,7 +13,7 @@
         </div>
       </div>
   
-      <!-- Colour -->
+     
       <div>
         <label for="colour">Colour</label>
         <select id="colour" formControlName="colour">
@@ -25,15 +25,16 @@
         </div>
       </div>
   
-      <!-- First adoption -->
-      <div>
-        <label>
+      
+      <div class="checkbox-row">
+        <label class="checkbox-label">
           <input type="checkbox" formControlName="firstAdoption" />
           Is this your first adoption?
         </label>
       </div>
+      
   
-      <!-- Age -->
+    
       <div>
         <label for="age">Age (years)</label>
         <input id="age" type="number" formControlName="age" />
@@ -45,15 +46,15 @@
         </div>
       </div>
   
-      <!-- Submit -->
+      
       <button type="submit" [disabled]="form.invalid || loading">
         Submit
       </button>
   
-      <!-- Loader -->
+     
       <div *ngIf="loading" class="mt-2">Submitting...</div>
   
-      <!-- Success -->
+      
       <div *ngIf="submitted" class="mt-2 success">
         Your adoption request has been registered in the system.
       </div>

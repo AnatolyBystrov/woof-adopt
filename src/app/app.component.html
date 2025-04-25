@@ -1,7 +1,16 @@
 <div class="tabs">
-  <button (click)="selectTab('search')">Search</button> |
-  <button (click)="selectTab('adopt')">Adopt</button>
+  <button 
+    (click)="selectTab('search')" 
+    [ngClass]="{ active: selectedTab === 'search' }">
+    🔎 Search
+  </button>
+  <button 
+    (click)="selectTab('adopt')" 
+    [ngClass]="{ active: selectedTab === 'adopt' }">
+    📩 Adopt
+  </button>
 </div>
+
 <hr />
 
 <app-search-dogs *ngIf="selectedTab === 'search'"></app-search-dogs>

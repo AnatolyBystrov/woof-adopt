@@ -1,17 +1,29 @@
-<h2 class="text-xl mb-4">Select breed:</h2>
-<select class="border px-2 py-1 rounded" [value]="selectedBreedValue()" (change)="onBreedChange($event)">
-  <option *ngFor="let breed of breedsList()" [value]="breed">{{ breed }}</option>
-</select>
+<div class="container">
+  <h1 class="title">🐶 Find your perfect dog!</h1>
 
-<div *ngIf="subBreedsList().length > 0" class="mt-3">
-  <h3 class="text-lg">Select sub-breed:</h3>
-  <select class="border px-2 py-1 rounded" [value]="selectedSubBreedValue()" (change)="onSubBreedChange($event)">
-    <option *ngFor="let sub of subBreedsList()" [value]="sub">{{ sub }}</option>
-  </select>
-</div>
+  <div class="selectors">
+    <div class="selector">
+      <label>Select breed:</label>
+      <select [value]="selectedBreed()" (change)="onBreedChange($event)">
+        <option disabled value="">— Choose a breed —</option>
+        <option *ngFor="let breed of breeds()" [value]="breed">{{ breed }}</option>
+      </select>
+    </div>
 
-<div *ngIf="imagesList().length > 0" class="grid grid-cols-2 gap-4 mt-4">
-  <div class="dog-image" *ngFor="let img of imagesList()">
-    <img [src]="img" [alt]="img" class="rounded border" />
+    <div class="selector" *ngIf="subBreeds().length > 0">
+      <label>Select sub-breed:</label>
+      <select [value]="selectedSubBreed()" (change)="onSubBreedChange($event)">
+        <option disabled value="">— Choose a sub-breed —</option>
+        <option *ngFor="let sub of subBreeds()" [value]="sub">{{ sub }}</option>
+      </select>
+    </div>
+  </div>
+
+  <h2 class="gallery-title" *ngIf="imagesList().length > 0">🐾 Dogs Gallery</h2>
+
+  <div class="gallery" *ngIf="imagesList().length > 0">
+    <div class="dog-card" *ngFor="let img of imagesList()">
+      <img [src]="img" [alt]="img" />
+    </div>
   </div>
 </div>
